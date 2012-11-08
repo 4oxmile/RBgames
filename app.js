@@ -12,6 +12,7 @@ var express = require('express')
 var app = express();
 var server;
 
+//configure
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -30,19 +31,21 @@ app.configure('development', function(){
 //route
 app.get('/', routes.index);
 app.get('/login', routes.login);
+app.get('/games', routes.games);
+app.get('/sumo', routes.sumo);
+app.get('/tail', routes.tail);
 
 //404page
 app.use(function(req,res){
     res.render('404.jade');
 });
 
-
 //socket.io
 server = http.createServer(app);
 io = require('socket.io').listen( server );
 socketio.start();
 
-
+//server listen
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

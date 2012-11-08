@@ -10,7 +10,6 @@ var start = function( ) {
             socket.emit('makeID', { result : robot.makeID( data) }); 
         });
         
-
         console.log('io.connection!!'); 
     });
 }
@@ -25,7 +24,6 @@ var robot = function(){
         makeID : makeID 
     }
 }();
-
 
 
 exports.start = start;
