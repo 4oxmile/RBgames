@@ -1,30 +1,33 @@
 
+var ids = {};
+ids.asdf = 'asdf';
+
+var checkID = function( id ) {
+	if( id in ids ) {
+		return true;
+	}
+    return false;	
+};
+
+
 
 var start = function( ) {
-    io.sockets.on('connection', function( socket ) { 
-        socket.on('server', function( data ) { 
-            console.log( data );  
-        }); 
-       
-        socket.on('makeID', function( data ) {
-            socket.emit('makeID', { result : robot.makeID( data) }); 
-        });
-        
-        console.log('io.connection!!'); 
-    });
+	io.sockets.on('connection', function( socket ) { 
+		socket.on('addUser', function( data ) {
+			//Exist ID	
+			if( checkID( data.id )) {
+				io.sockets.emit('news', { data : 'exist' } );
+				console.log( 'existID');
+			} 
+			else {
+				socket.id = data.id;
+				ids[data.id] = data.id;		
+				io.sockets.emit('news', { data : 'nono' } );
+		    	console.log( socket.id );	
+			}
+		});
+	});
 }
-
-var robot = function(){
-    var makeID = function( id ) {
-        console.log( 'makeID:' + id );    
-        
-        return true;    
-    }
-    return {
-        makeID : makeID 
-    }
-}();
-
 
 exports.start = start;
 

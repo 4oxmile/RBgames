@@ -1,6 +1,4 @@
 
-
-
 /**
  * Module dependencies.
  */
@@ -9,7 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , socketio = require('./socketio/start');
+  , sio = require('./socketio/start');
 
 var app = express();
 var server;
@@ -20,12 +18,16 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+//  app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+  
+
 });
+
+
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
@@ -39,13 +41,13 @@ app.get('/tail', routes.tail);
 
 //404page
 app.use(function(req,res){
-    res.render('404.jade');
+	res.render('404.jade');
 });
 
 //socket.io
 server = http.createServer(app);
 io = require('socket.io').listen( server );
-socketio.start();
+sio.start();
 
 //server listen
 server.listen(app.get('port'), function(){

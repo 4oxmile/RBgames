@@ -1,18 +1,22 @@
 
-  
 
-
+//var socket = io.connect('http://192.168.10.23:3000');
 var socket = io.connect('http://foxmile.net:3000');
-  socket.on('news', function( data) {
-    console.log(data)
-    socket.emit('server', { hello : 'server' })
-  });
-  socket.emit('makeID', '1234');
-  socket.on('makeID', function( data ) {
-    console.log( 'makeID ', data );
-  });
+
+socket.on('exist', function( data ) {
+	console.log( "ERROR : ", data );
+});
+
+socket.on('news', function( data ) {
+		alert('nono');	
+	console.log('news : ', data );
+});
 
 
-  console.log('block script'); 
+$('#asdf').on('click',function() {
+	var val = $('input').val();
+	socket.emit('addUser', { id : val } );
+});
+
 
 
