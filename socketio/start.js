@@ -12,21 +12,18 @@ var checkID = function( id ) {
 
 
 var start = function( ) {
-	io.sockets.on('connection', function( socket ) { 
-		socket.on('addUser', function( data, socket ) {
-			//Exist ID	
-			if( checkID( data.id )) {
-				socket.emit('news', { data : 'exist' } );
-				console.log( 'existID');
-			} 
-			else {
-				socket.id = data.id;
-				ids[data.id] = data.id;		
-				socket.emit('news', { data : 'nono' } );
-		    	console.log( socket.id );	
-			}
-		});
+io.sockets.on('connection', function (socket) {
+
+	socket.emit('custom', 'server> custom' );
+
+	socket.on('message', function( data ) {
+		console.log( data );
 	});
+
+}); 
+
+
+ 
 }
 
 exports.start = start;
