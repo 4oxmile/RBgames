@@ -10,14 +10,22 @@ var checkID = function( id ) {
 };
 
 
-
+var ids={};
 var start = function( ) {
 io.sockets.on('connection', function (socket) {
 
 	socket.emit('custom', 'server> custom' );
 
 	socket.on('message', function( data ) {
-		console.log( data );
+	    if( ids[data] !== undefined ) {
+			console.log('Exist');	
+			socket.emit('custom', 'Exist' + data );	
+		}
+		else {
+			ids[data] = data;	
+			console.log( data );
+			socket.emit('custom', data );	
+		}	
 	});
 
 }); 
