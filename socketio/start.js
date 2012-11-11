@@ -24,8 +24,9 @@ io.sockets.on('connection', function (socket) {
 			ids[data] = data;	
 			console.log( data );
 			socket.emit('custom', data );	
+			
+			socket.broadcast.emit('message', socket.id , data );	
 		}	
-		socket.broadcast.send('broadcast'+ data );	
 	});
 
 }); 
