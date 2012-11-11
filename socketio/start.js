@@ -15,7 +15,6 @@ var start = function( ) {
 io.sockets.on('connection', function (socket) {
 
 	socket.emit('custom', 'server> custom' );
-
 	socket.on('message', function( data ) {
 	    if( ids[data] !== undefined ) {
 			console.log('Exist');	
@@ -26,6 +25,7 @@ io.sockets.on('connection', function (socket) {
 			console.log( data );
 			socket.emit('custom', data );	
 		}	
+		socket.broadcast.send('broadcast'+ data );	
 	});
 
 }); 
