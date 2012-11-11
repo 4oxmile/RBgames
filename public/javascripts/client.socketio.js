@@ -8,7 +8,7 @@ socket.on('exist', function( data ) {
 });
 
 socket.on('news', function( data ) {
-		alert('nono');	
+	alert('nono');	
 	console.log('news : ', data );
 });
 

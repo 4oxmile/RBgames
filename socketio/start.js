@@ -13,16 +13,16 @@ var checkID = function( id ) {
 
 var start = function( ) {
 	io.sockets.on('connection', function( socket ) { 
-		socket.on('addUser', function( data ) {
+		socket.on('addUser', function( data, socket ) {
 			//Exist ID	
 			if( checkID( data.id )) {
-				io.sockets.emit('news', { data : 'exist' } );
+				socket.emit('news', { data : 'exist' } );
 				console.log( 'existID');
 			} 
 			else {
 				socket.id = data.id;
 				ids[data.id] = data.id;		
-				io.sockets.emit('news', { data : 'nono' } );
+				socket.emit('news', { data : 'nono' } );
 		    	console.log( socket.id );	
 			}
 		});
